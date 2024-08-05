@@ -1,0 +1,73 @@
+import { SECRET_JWT_KEY } from '../config.js'
+import { validatePartialUser, validateUser } from '../schemas/user.js'
+import jwt from 'jsonwebtoken'
+
+export class AuthController {
+  constructor ({ authModel }) {
+    this.authModel = authModel
+  }
+
+  hola = async (req, res) => {
+    const hola = await this.authModel.hola()
+    res.json({ message: hola })
+  }
+
+  login = async (req, res) => {
+    const result = validatePartialUser(req.body)
+
+    if (!result.success) {
+      return res.status(400).json({ error: JSON.parse(result.error.message) })
+    }
+
+    try {
+      const user = await this.authModel.login({ input: result.data })
+      const token = jwt.sign({ id: user._id, username: user.username }, SECRET_JWT_KEY, {
+        expiresIn: '20h'
+      })
+
+      // TODO refresh token
+
+      res
+        .cookie('acces_token', token, {
+          httpOnly: true, // la cookie solo se puede ver desde el servidor
+          secure: process.env.NODE_ENV === 'production', // la cookie solo se puede acceder en https
+          sameSite: 'strict', // solo se puede acceder desde el mismo dominio
+          maxAge: 1000 * 60 * 60
+        })
+        .json({ user })
+    } catch (e) {
+      res.status(401).json({ error: e.message })
+    }
+  }
+
+  register = async (req, res) => {
+    const result = validateUser(req.body)
+
+    if (!result.success) {
+      return res.status(400).json({ error: JSON.parse(result.error.message) })
+    }
+
+    try {
+      const user = await this.authModel.register({ input: result.data })
+      res.json({ _user: user })
+    } catch (e) {
+      res.status(400).json({ error: e.message })
+    }
+  }
+
+  logout = async (req, res) => {
+    res
+      .clearCookie('acces_token')
+      .json({ message: 'logout succsecfull' })
+  }
+
+  checkAuth = async (req, res) => {
+    const { user } = req.session
+
+    if (!user) {
+      return res.status(401).json({ authenticated: false, message: 'Unauthorized' })
+    }
+
+    res.json({ authenticated: true, message: 'Authorized' })
+  }
+}
