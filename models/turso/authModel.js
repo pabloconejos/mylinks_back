@@ -10,7 +10,7 @@ export class AuthModel {
   }
 
   static async register ({ input }) {
-    // 3. crear id
+    // 3.crear id
     const id = crypto.randomUUID()
     const hashedPassword = await bcrypt.hash(input.password, SALT_ROUNDS)
     try {
@@ -26,7 +26,6 @@ export class AuthModel {
     // asegurarnos de que el usuario exisye
 
     const { rows } = await client.execute('SELECT * FROM users WHERE mail = ?', [mail])
-    console.log(rows)
     const user = rows[0]
     if (!user) { throw new Error('mail does not exist') }
 

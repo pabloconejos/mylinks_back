@@ -4,8 +4,9 @@ import { createAuthRouter } from './routes/authRouter.js'
 import cookieParser from 'cookie-parser'
 import jwt from 'jsonwebtoken'
 import { SECRET_JWT_KEY } from './config.js'
+import { createPageRouter } from './routes/pageRouter.js'
 
-export const createApp = ({ authModel }) => {
+export const createApp = ({ authModel, pageModel }) => {
   const app = express()
   app.disable('x-powered-by')
 
@@ -18,7 +19,6 @@ export const createApp = ({ authModel }) => {
 
   // checkeo de si tiene token
   app.use((req, res, next) => {
-    console.log(req.cookies)
     const token = req.cookies.acces_token
     req.session = { user: null }
 
@@ -30,7 +30,9 @@ export const createApp = ({ authModel }) => {
     next() // seguir a la siguiente ruta o middleware
   })
 
+  // RUTAS
   app.use('/auth', createAuthRouter({ authModel }))
+  app.use('/page', createPageRouter({ pageModel }))
 
   const PORT = process.env.PORT ?? 1234
 
