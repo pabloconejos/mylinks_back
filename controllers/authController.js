@@ -21,7 +21,7 @@ export class AuthController {
 
     try {
       const user = await this.authModel.login({ input: result.data })
-      const token = jwt.sign({ id: user._id, username: user.username }, SECRET_JWT_KEY, {
+      const token = jwt.sign({ id: user.id, username: user.username }, SECRET_JWT_KEY, {
         expiresIn: '20h'
       })
 

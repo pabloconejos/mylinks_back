@@ -7,7 +7,7 @@ export const createPageRouter = ({ pageModel }) => {
   const pageController = new PageController({ pageModel })
 
   pageRouter.get('/search', pageController.search)
-  pageRouter.get('/create', pageController.create)
+  pageRouter.post('/create', pageController.create)
 
   return pageRouter
 }

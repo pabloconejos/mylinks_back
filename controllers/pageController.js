@@ -15,8 +15,12 @@ export class PageController {
   }
 
   create = async (req, res) => {
-    const { id } = req.body
-    const createPage = await this.pageModel.create({ id })
-    res.json({ message: createPage })
+    const { user } = req.session
+    try {
+      const createPage = await this.pageModel.create({ id: user.id })
+      res.json({ pageId: createPage })
+    } catch (e) {
+      res.json({ message: e.message })
+    }
   }
 }
