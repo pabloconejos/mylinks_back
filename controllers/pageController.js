@@ -20,7 +20,7 @@ export class PageController {
       const createPage = await this.pageModel.create({ id: user.id })
       res.json({ pageId: createPage })
     } catch (e) {
-      res.json({ message: e.message })
+      res.status(409).json({ message: e.message })
     }
   }
 }
