@@ -1,3 +1,5 @@
+import { validateUpdate } from '../schemas/updatePage.js'
+
 export class PageController {
   constructor ({ pageModel }) {
     this.pageModel = pageModel
@@ -22,5 +24,23 @@ export class PageController {
     } catch (e) {
       res.status(409).json({ message: e.message })
     }
+  }
+
+  update = async (req, res) => {
+    const { user } = req.session
+    const result = validateUpdate(req.body.data)
+
+    console.log(result)
+
+    if (!result.success) {
+      return res.status(400).json({ error: JSON.parse(result.error.message) })
+    }
+    res.status(200).json({ message: 'hola' })
+    /* try {
+      const updatePage = await this.pageModel.update({ id: user.id })
+      res.json({ pageId: updatePage })
+    } catch (e) {
+      res.status(409).json({ message: e.message })
+    } */
   }
 }

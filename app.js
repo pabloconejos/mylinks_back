@@ -5,8 +5,9 @@ import cookieParser from 'cookie-parser'
 import jwt from 'jsonwebtoken'
 import { SECRET_JWT_KEY } from './config.js'
 import { createPageRouter } from './routes/pageRouter.js'
+import { createBgHtmlRouter } from './routes/bgHtmlRouter.js'
 
-export const createApp = ({ authModel, pageModel }) => {
+export const createApp = ({ authModel, pageModel, bgHtmlModel }) => {
   const app = express()
   app.disable('x-powered-by')
 
@@ -33,6 +34,7 @@ export const createApp = ({ authModel, pageModel }) => {
   // RUTAS
   app.use('/auth', createAuthRouter({ authModel }))
   app.use('/page', createPageRouter({ pageModel }))
+  app.use('/background-html', createBgHtmlRouter({ bgHtmlModel }))
 
   const PORT = process.env.PORT ?? 1234
 
