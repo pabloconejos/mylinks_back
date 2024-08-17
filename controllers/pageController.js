@@ -30,17 +30,19 @@ export class PageController {
     const { user } = req.session
     const result = validateUpdate(req.body.data)
 
-    console.log(result)
-
     if (!result.success) {
       return res.status(400).json({ error: JSON.parse(result.error.message) })
     }
-    res.status(200).json({ message: 'hola' })
-    /* try {
-      const updatePage = await this.pageModel.update({ id: user.id })
+
+    try {
+      const updatePage = await this.pageModel.update({ input: result.data, id: user.id })
       res.json({ pageId: updatePage })
     } catch (e) {
-      res.status(409).json({ message: e.message })
-    } */
+      if (e.message === 'The page you are trying to update does not exist.') {
+        res.status(404).json({ message: e.message })
+      } else {
+        res.status(409).json({ message: e.message })
+      }
+    }
   }
 }
