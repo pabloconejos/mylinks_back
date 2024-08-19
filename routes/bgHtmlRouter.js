@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { BgHtmlController } from '../controllers/bgHtlmlController.js'
+import { BgHtmlController } from '../controllers/index.js'
 
 export const createBgHtmlRouter = ({ bgHtmlModel }) => {
   const authRouter = Router()

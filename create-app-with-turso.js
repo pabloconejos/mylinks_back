@@ -1,6 +1,4 @@
 import { createApp } from './app.js'
-import { AuthModel } from './models/turso/authModel.js'
-import { BgHtmlModel } from './models/turso/bgHtmlModel.js'
-import { PageModel } from './models/turso/pageModel.js'
+import { AuthModel, PageModel, BgHtmlModel } from './models/turso/index.js'
 
 createApp({ authModel: AuthModel, pageModel: PageModel, bgHtmlModel: BgHtmlModel })

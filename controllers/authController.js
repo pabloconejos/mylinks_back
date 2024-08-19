@@ -1,5 +1,5 @@
 import { SECRET_JWT_KEY } from '../config.js'
-import { validatePartialUser, validateUser } from '../schemas/user.js'
+import { validatePartialUser, validateUser } from '../schemas/index.js'
 import jwt from 'jsonwebtoken'
 
 export class AuthController {
@@ -7,9 +7,21 @@ export class AuthController {
     this.authModel = authModel
   }
 
-  hola = async (req, res) => {
-    const hola = await this.authModel.hola()
-    res.json({ message: hola })
+  getUser = async (req, res) => {
+    const { user } = req.session
+
+    console.log(req.session)
+
+    if (!user) {
+      return res.status(401).json({ authenticated: false, message: 'Unauthorized' })
+    }
+
+    try {
+      const fullUser = await this.authModel.getUser({ userid: user.id })
+      res.json({ fullUser })
+    } catch (e) {
+      res.status(400).json({ error: e.message })
+    }
   }
 
   login = async (req, res) => {

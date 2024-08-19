@@ -1,11 +1,11 @@
 import express, { json } from 'express'
 import cors from 'cors'
-import { createAuthRouter } from './routes/authRouter.js'
+
 import cookieParser from 'cookie-parser'
 import jwt from 'jsonwebtoken'
 import { SECRET_JWT_KEY } from './config.js'
-import { createPageRouter } from './routes/pageRouter.js'
-import { createBgHtmlRouter } from './routes/bgHtmlRouter.js'
+
+import { createAuthRouter, createPageRouter, createBgHtmlRouter } from './routes/index.js'
 
 export const createApp = ({ authModel, pageModel, bgHtmlModel }) => {
   const app = express()

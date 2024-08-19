@@ -1,5 +1,5 @@
 import { SALT_ROUNDS } from '../../config.js'
-import { client } from '../../utils/createClient.js'
+import { client } from '../../utils/index.js'
 
 import crypto from 'node:crypto'
 import bcrypt from 'bcrypt'
@@ -36,6 +36,41 @@ export class AuthModel {
       id: user.id,
       username: user.username,
       mail: user.mail
+    }
+  }
+
+  static async getUser ({ userid }) {
+    try {
+      const { rows } = await client.execute(`
+        SELECT
+          u.id AS user_id,
+          u.username,
+          u.mail,
+          u.creation_date,
+          lsp.id AS page_id,
+          lsp.title,
+          lsp.description,
+          lsp.likes,
+          lsp.background_emoji,
+          lsp.background_color,
+          lsp.background_html_id,
+          lsp.bg_mode
+        FROM
+            users u
+            LEFT JOIN linkspage lsp ON u.id = lsp.user_id
+        WHERE
+            u.id = ?;
+        `, [userid])
+
+      const user = rows[0]
+
+      console.log(rows)
+
+      if (!user) { throw new Error('user does not exist') }
+
+      return user
+    } catch (e) {
+      throw new Error(e)
     }
   }
 }

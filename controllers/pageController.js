@@ -1,4 +1,4 @@
-import { validateUpdate } from '../schemas/updatePage.js'
+import { validateUpdate } from '../schemas/index.js'
 
 export class PageController {
   constructor ({ pageModel }) {

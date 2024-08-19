@@ -1,4 +1,4 @@
-import { client } from '../../utils/createClient.js'
+import { client } from '../../utils/index.js'
 
 export class BgHtmlModel {
   static async getBackgrounds () {
