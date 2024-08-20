@@ -48,6 +48,3 @@ Existen aplicaciones similares ya en el mercado, como Linktree, que ofrecen func
 5.Ejecuta el servidor en modo de desarrollo:
    ```bash
      npm run dev
-
-
-
