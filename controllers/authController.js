@@ -18,7 +18,7 @@ export class AuthController {
 
     try {
       const fullUser = await this.authModel.getUser({ userid: user.id })
-      res.json({ fullUser })
+      res.json(fullUser)
     } catch (e) {
       res.status(400).json({ error: e.message })
     }

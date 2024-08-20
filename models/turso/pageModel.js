@@ -27,7 +27,7 @@ export class PageModel {
   static async update ({ input, id }) {
     try {
       const { rowsAffected } = await client.execute(
-        'UPDATE linkspage SET title = ?, description = ?, background_emoji = ?, background_color = ?, background_html_id = ? WHERE id = ?',
+        'UPDATE linkspage SET title = ?, description = ?, background_emoji = ?, background_color = ?, background_html_id = ? WHERE user_id = ?',
         [input.pageName, input.pageDescription, input.emojiBg, input.colorBg, input.cssBg, id]
       )
 

@@ -46,7 +46,6 @@ export class AuthModel {
           u.id AS user_id,
           u.username,
           u.mail,
-          u.creation_date,
           lsp.id AS page_id,
           lsp.title,
           lsp.description,
@@ -54,10 +53,13 @@ export class AuthModel {
           lsp.background_emoji,
           lsp.background_color,
           lsp.background_html_id,
-          lsp.bg_mode
+          lsp.bg_mode,
+          lsp.mainColor,
+          html.css_real_bg
         FROM
             users u
             LEFT JOIN linkspage lsp ON u.id = lsp.user_id
+            LEFT JOIN html_bg html ON html.id = lsp.background_html_id
         WHERE
             u.id = ?;
         `, [userid])
