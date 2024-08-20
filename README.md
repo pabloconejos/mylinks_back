@@ -1,3 +1,5 @@
+![screenshot](./assets/gitImage/gitImage.png)
+
 # Proyecto: API para Red Social de Enlaces Personales - Backend
 
 Este proyecto es la API backend de una aplicación web donde cada usuario puede crear y personalizar su propia página, añadiendo enlaces a sus redes sociales, sitios web personales o cualquier otro enlace que desee compartir. El backend gestiona la autenticación, la base de datos y la lógica de negocio de la aplicación.
