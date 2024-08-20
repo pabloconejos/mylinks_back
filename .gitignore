@@ -1,4 +1,3 @@
-# config
-./config.js
-# createClient
-./utils/createClient.prod.js
+
+config.js
+utils/createClient.prod.js
