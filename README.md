@@ -24,3 +24,29 @@ Este proyecto está actualmente en desarrollo. Se están implementando nuevas ca
 ## Notas
 Existen aplicaciones similares ya en el mercado, como Linktree, que ofrecen funcionalidades parecidas. Este proyecto es un ejercicio educativo y no tiene fines comerciales.
 
+## Instalación
+
+1. Clona el repositorio:
+   ```bash
+   git clone https://github.com/pabloconejos/mylinks_back.git
+2. Navega al directorio del proyecto:
+    ```bash
+    cd mylinks_back
+3. Instala las dependencias:
+    ```bash
+    npm install
+4. Configura las variables de entorno en config.js:
+    ```bash
+    export const {
+      _PORT = 3000,
+      _SALT_ROUNDS = 10,
+      _SECRET_JWT_KEY = '', // JWT KEY
+      _AUTHTOKEN = '', // TURSO AUTHTOKEM
+      _URI = '' // DATABASE URI
+    } = process.env
+5.Ejecuta el servidor en modo de desarrollo:
+  ```bash
+  npm run dev
+
+
+
