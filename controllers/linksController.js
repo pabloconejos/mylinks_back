@@ -7,7 +7,6 @@ export class LinksController {
 
   setLink = async (req, res) => {
     const { user } = req.session
-    console.log(req.body.data)
     const result = validateLink(req.body.data)
 
     if (!result.success) {
