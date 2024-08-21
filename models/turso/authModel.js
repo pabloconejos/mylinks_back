@@ -66,8 +66,6 @@ export class AuthModel {
 
       const user = rows[0]
 
-      console.log(rows)
-
       if (!user) { throw new Error('user does not exist') }
 
       return user

@@ -10,8 +10,6 @@ export class AuthController {
   getUser = async (req, res) => {
     const { user } = req.session
 
-    console.log(req.session)
-
     if (!user) {
       return res.status(401).json({ authenticated: false, message: 'Unauthorized' })
     }
