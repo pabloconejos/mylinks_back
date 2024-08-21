@@ -18,6 +18,11 @@ export class PageController {
 
   create = async (req, res) => {
     const { user } = req.session
+
+    if (!user) {
+      return res.status(401).json({ authenticated: false, message: 'Unauthorized' })
+    }
+
     try {
       const createPage = await this.pageModel.create({ id: user.id })
       res.json({ pageId: createPage })
@@ -28,6 +33,11 @@ export class PageController {
 
   update = async (req, res) => {
     const { user } = req.session
+
+    if (!user) {
+      return res.status(401).json({ authenticated: false, message: 'Unauthorized' })
+    }
+
     const result = validateUpdate(req.body.data)
 
     if (!result.success) {

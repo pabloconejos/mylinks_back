@@ -7,6 +7,7 @@ export const createLinksRouter = ({ linksModel }) => {
   const linksController = new LinksController({ linksModel })
 
   linksRouter.post('/link', linksController.setLink)
+  linksRouter.get('/links', linksController.getLinks)
   linksRouter.get('/linksImages', linksController.getLinksImages)
 
   return linksRouter

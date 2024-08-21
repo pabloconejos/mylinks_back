@@ -19,6 +19,30 @@ export class LinksModel {
     }
   }
 
+  static async getLinks ({ userId }) {
+    try {
+      const { rows } = await client.execute(`
+        SELECT 
+          l.id AS linkId,
+          l.user_id AS userId,
+          l.page_id AS pageId,
+          l.url as linkUrl,
+          l.title,
+          l.description,
+          l.creation_date,
+          l.image_id as imageId,
+          lsi.name as imageName,
+          lsi.url as imageUrl 
+        FROM links l 
+        LEFT JOIN links_images lsi ON l.image_id = lsi.id 
+        WHERE 
+          user_id = ?`, [userId])
+      return rows
+    } catch (e) {
+      throw new Error(e)
+    }
+  }
+
   static async getLinksImages () {
     try {
       const { rows } = await client.execute('SELECT * FROM links_images')

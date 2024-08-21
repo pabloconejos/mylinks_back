@@ -7,6 +7,9 @@ export class LinksController {
 
   setLink = async (req, res) => {
     const { user } = req.session
+    if (!user) {
+      return res.status(401).json({ authenticated: false, message: 'Unauthorized' })
+    }
     const result = validateLink(req.body.data)
 
     if (!result.success) {
@@ -16,6 +19,21 @@ export class LinksController {
     try {
       const link = await this.linksModel.setLink({ input: result.data, userId: user.id })
       res.json({ linkId: link })
+    } catch (e) {
+      res.status(400).json({ message: e.message })
+    }
+  }
+
+  getLinks = async (req, res) => {
+    const { user } = req.session
+
+    if (!user) {
+      return res.status(401).json({ authenticated: false, message: 'Unauthorized' })
+    }
+
+    try {
+      const links = await this.linksModel.getLinks({ userId: user.id })
+      res.json(links)
     } catch (e) {
       res.status(400).json({ message: e.message })
     }
