@@ -23,13 +23,13 @@ export class LinksModel {
     try {
       const { rows } = await client.execute(`
         SELECT 
-          l.id AS linkId,
+          l.id AS id,
           l.user_id AS userId,
           l.page_id AS pageId,
           l.url as linkUrl,
           l.title,
           l.description,
-          l.creation_date,
+          l.creation_date AS creationDate,
           l.image_id as imageId,
           lsi.name as imageName,
           lsi.url as imageUrl 
