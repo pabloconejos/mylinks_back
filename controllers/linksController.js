@@ -10,8 +10,7 @@ export class LinksController {
     if (!user) {
       return res.status(401).json({ authenticated: false, message: 'Unauthorized' })
     }
-    const result = validateLink(req.body.data)
-
+    const result = validateLink(req.body.link)
     if (!result.success) {
       return res.status(400).json({ error: JSON.parse(result.error.message) })
     }

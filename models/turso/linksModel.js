@@ -4,11 +4,11 @@ import { client } from '../../utils/index.js'
 export class LinksModel {
   static async setLink ({ input, userId }) {
     const idLink = crypto.randomUUID()
-    const { description, title, image_id, url } = input
+    const { description, title, image_id, linkUrl } = input
     try {
       const { rows } = await client.execute('SELECT id FROM linkspage WHERE user_id = ?', [userId])
       const pageId = rows[0].id
-      const { rowsAffected } = await client.execute('INSERT INTO links (id, user_id, page_id, url, title, description, image_id) VALUES (?,?,?,?,?,?,?)', [idLink, userId, pageId, url, title, description, image_id])
+      const { rowsAffected } = await client.execute('INSERT INTO links (id, user_id, page_id, url, title, description, image_id) VALUES (?,?,?,?,?,?,?)', [idLink, userId, pageId, linkUrl, title, description, image_id])
       if (rowsAffected >= 1) {
         return idLink
       } else {

@@ -10,7 +10,7 @@ const linkSchema = z.object({
   image_id: z.number({
     invalid_type_error: 'image_id must be a number'
   }).nonnegative(),
-  url: z.string({
+  linkUrl: z.string({
     invalid_type_error: 'url must be a string'
   }).url()
 })
