@@ -43,6 +43,16 @@ export class LinksModel {
     }
   }
 
+  static async deleteLink ({ userId, linkId }) {
+    try {
+      const r = await client.execute('DELETE * FROM links WHERE id == ? AND userId == ?', [linkId, userId])
+      console.log(r)
+      return r
+    } catch (e) {
+      throw new Error(e)
+    }
+  }
+
   static async getLinksImages () {
     try {
       const { rows } = await client.execute('SELECT * FROM links_images')

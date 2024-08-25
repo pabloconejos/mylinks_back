@@ -38,6 +38,21 @@ export class LinksController {
     }
   }
 
+  deleteLinks = async (req, res) => {
+    const { user } = req.session
+    const { id } = req.body.id
+    if (!user) {
+      return res.status(401).json({ authenticated: false, message: 'Unauthorized' })
+    }
+
+    try {
+      const link = await this.linksModel.deleteLink({ userId: user.id, linkId: id })
+      res.json({ link })
+    } catch (e) {
+
+    }
+  }
+
   getLinksImages = async (req, res) => {
     try {
       const images = await this.linksModel.getLinksImages()
