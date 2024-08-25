@@ -40,7 +40,8 @@ export class LinksController {
 
   deleteLinks = async (req, res) => {
     const { user } = req.session
-    const { id } = req.body.id
+    const { id } = req.params
+
     if (!user) {
       return res.status(401).json({ authenticated: false, message: 'Unauthorized' })
     }
@@ -49,7 +50,23 @@ export class LinksController {
       const link = await this.linksModel.deleteLink({ userId: user.id, linkId: id })
       res.json({ link })
     } catch (e) {
+      res.status(400).json({ message: e.message })
+    }
+  }
 
+  editLinks = async (req, res) => {
+    const { user } = req.session
+    const { link } = req.body
+
+    if (!user) {
+      return res.status(401).json({ authenticated: false, message: 'Unauthorized' })
+    }
+
+    try {
+      const linkId = await this.linksModel.editLink({ userId: user.id, link })
+      res.json({ linkId })
+    } catch (e) {
+      res.status(400).json({ message: e.message })
     }
   }
 

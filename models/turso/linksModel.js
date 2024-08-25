@@ -45,9 +45,29 @@ export class LinksModel {
 
   static async deleteLink ({ userId, linkId }) {
     try {
-      const r = await client.execute('DELETE * FROM links WHERE id == ? AND userId == ?', [linkId, userId])
-      console.log(r)
-      return r
+      await client.execute('DELETE FROM links WHERE id = ? AND user_id = ?', [linkId, userId])
+      return linkId
+    } catch (e) {
+      throw new Error(e)
+    }
+  }
+
+  static async editLink ({ userId, link }) {
+    const { title, description, linkUrl, image_id } = link
+
+    try {
+      await client.execute(`
+        UPDATE links
+        SET 
+          url = ?,
+          title = ?,
+          description = ?,
+          image_id = ?
+        WHERE 
+          id = ? 
+          AND user_id = ?
+      `, [linkUrl, title, description, image_id, link.id, userId])
+      return link.id
     } catch (e) {
       throw new Error(e)
     }
