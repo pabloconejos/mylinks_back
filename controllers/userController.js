@@ -38,10 +38,10 @@ export class UserController {
       const result = validatePartialUser({ password: password.newPassword })
       console.log(result)
       if (!result.success) {
-        return res.status(400).json({ error: JSON.parse(result.error.message) })
+        return res.status(400).json({ error: JSON.parse(result.error) })
       }
     } catch (e) {
-      return res.status(400).json({ error: JSON.parse(e.error.message) })
+      return res.status(400).json({ error: JSON.parse(e.error) })
     }
 
     try {
