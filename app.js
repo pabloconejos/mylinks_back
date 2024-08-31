@@ -5,10 +5,10 @@ import cookieParser from 'cookie-parser'
 import jwt from 'jsonwebtoken'
 import { SECRET_JWT_KEY } from './config.js'
 
-import { createAuthRouter, createPageRouter, createBgHtmlRouter } from './routes/index.js'
+import { createAuthRouter, createPageRouter, createBgHtmlRouter, createUserRouter } from './routes/index.js'
 import { createLinksRouter } from './routes/linksRouter.js'
 
-export const createApp = ({ authModel, pageModel, bgHtmlModel, linksModel }) => {
+export const createApp = ({ authModel, pageModel, bgHtmlModel, linksModel, userModel }) => {
   const app = express()
   app.disable('x-powered-by')
 
@@ -37,6 +37,7 @@ export const createApp = ({ authModel, pageModel, bgHtmlModel, linksModel }) => 
   app.use('/page', createPageRouter({ pageModel }))
   app.use('/background-html', createBgHtmlRouter({ bgHtmlModel }))
   app.use('/links', createLinksRouter({ linksModel }))
+  app.use('/user', createUserRouter({ userModel }))
 
   const PORT = process.env.PORT ?? 1234
 
