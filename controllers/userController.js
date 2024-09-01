@@ -28,27 +28,23 @@ export class UserController {
     const { password } = req.body
     const { user } = req.session
     if (!user) return res.status(401).json({ authenticated: false, message: 'Unauthorized' })
-    console.log(password)
     try {
       const isCorrect = await this.userModel.ckechPassword({ oldPassword: password.oldPassword, id: user.id })
       if (!isCorrect) {
         return res.status(400).json({ error: 'Incorrect Password' })
       }
-      console.log({ password: password.newPassword })
       const result = validatePartialUser({ password: password.newPassword })
-      console.log(result)
       if (!result.success) {
         return res.status(400).json({ error: JSON.parse(result.error) })
       }
     } catch (e) {
-      return res.status(400).json({ error: JSON.parse(e.error) })
+      return res.status(400).json({ error: 'Error' })
     }
 
     try {
       const passwordChanged = await this.userModel.changePassword({ newPassword: password.newPassword, id: user.id })
       return res.json({ changedPassoword: passwordChanged })
     } catch (e) {
-      console.log(e)
       return res.status(400).json({ error: 'Error' })
     }
   }

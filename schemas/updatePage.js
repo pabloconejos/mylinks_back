@@ -15,6 +15,12 @@ const updateSchema = z.object({
   }),
   cssBg: z.number({
     invalid_type_error: 'cssBg must be a number'
+  }),
+  mainColor: z.string({
+    invalid_type_error: 'mainColor must be a string'
+  }),
+  secondaryColor: z.string({
+    invalid_type_error: 'secondaryColor must be a string'
   })
 })
 

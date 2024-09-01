@@ -55,6 +55,7 @@ export class AuthModel {
           lsp.background_html_id,
           lsp.bg_mode,
           lsp.mainColor,
+          lsp.secondaryColor,
           html.css_real_bg
         FROM
             users u

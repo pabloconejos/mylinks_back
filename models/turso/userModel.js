@@ -26,7 +26,6 @@ export class UserModel {
     if (!passwordBd) { throw new Error('user does not exist') }
 
     const isValid = await bcrypt.compare(oldPassword, passwordBd)
-    console.log(isValid)
     if (!isValid) {
       throw new Error('Passwords doesn´t match')
     }
@@ -35,7 +34,6 @@ export class UserModel {
   }
 
   static async changePassword ({ newPassword, id }) {
-    console.log('changePassword')
     try {
       const hashedPassword = await bcrypt.hash(newPassword, SALT_ROUNDS)
 
@@ -44,7 +42,6 @@ export class UserModel {
         [hashedPassword, id]
       )
 
-      console.log(rowsAffected)
       if (rowsAffected === 0) {
         throw new Error('PageNotFound')
       }

@@ -39,7 +39,6 @@ export class PageController {
     }
 
     const result = validateUpdate(req.body.data)
-
     if (!result.success) {
       return res.status(400).json({ error: JSON.parse(result.error.message) })
     }
