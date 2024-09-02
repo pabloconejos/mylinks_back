@@ -49,6 +49,23 @@ export class UserController {
     }
   }
 
+  getUser = async (req, res) => {
+    console.log(req)
+    const { user } = req.params
+    const exact = req.query.exact === 'true'
+
+    if (!user) {
+      return res.status(400).json({ error: 'User not found' })
+    }
+
+    try {
+      const userResult = await this.userModel.getUser({ user, exact })
+      return res.json(userResult)
+    } catch (e) {
+      return res.status(404).json(e.message)
+    }
+  }
+
   delete = async (req, res) => {
 
   }

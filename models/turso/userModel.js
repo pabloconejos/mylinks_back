@@ -50,4 +50,48 @@ export class UserModel {
       throw new Error('page not found')
     }
   }
+
+  static async getUser ({ user, exact = false }) {
+    try {
+      let params
+      let query = `
+      SELECT
+        u.id AS user_id,
+        u.username,
+        u.mail,
+        lsp.id AS page_id,
+        lsp.title,
+        lsp.description,
+        lsp.likes,
+        lsp.background_emoji,
+        lsp.background_color,
+        lsp.background_html_id,
+        lsp.bg_mode,
+        lsp.mainColor,
+        lsp.secondaryColor,
+        html.css_real_bg
+      FROM
+        users u
+        LEFT JOIN linkspage lsp ON u.id = lsp.user_id
+        LEFT JOIN html_bg html ON html.id = lsp.background_html_id`
+
+      if (exact) {
+        query = `${query} WHERE username = ?`
+        params = [user]
+      } else {
+        query = `${query} WHERE username LIKE ?`
+        params = [`${user}%`]
+      }
+
+      const { rows } = await client.execute(query, params)
+
+      if (rows.length <= 0) {
+        throw new Error('User not Found')
+      }
+
+      return rows
+    } catch (e) {
+      throw new Error(e.message)
+    }
+  }
 }
