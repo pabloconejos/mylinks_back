@@ -46,7 +46,6 @@ export class PageModel {
   }
 
   static async like ({ pageId, likeCount }) {
-    console.log(likeCount, pageId)
     try {
       const { rowsAffected } = await client.execute(
         'UPDATE linkspage SET likes = ? WHERE id = ?',

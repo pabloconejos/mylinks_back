@@ -1,4 +1,3 @@
-import { query } from 'express'
 import { validateLink } from '../schemas/index.js'
 
 export class LinksController {
@@ -27,7 +26,6 @@ export class LinksController {
   getLinks = async (req, res) => {
     // const { user } = req.session
     const { user } = req.params
-    console.log(user)
 
     if (!user) {
       return res.status(400)

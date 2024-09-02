@@ -20,7 +20,6 @@ export class LinksModel {
   }
 
   static async getLinks ({ userId }) {
-    console.log(userId)
     try {
       const { rows } = await client.execute(`
         SELECT 

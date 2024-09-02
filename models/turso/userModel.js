@@ -6,17 +6,20 @@ import bcrypt from 'bcrypt'
 export class UserModel {
   static async update ({ userData, id }) {
     try {
-      const { rowsAffected } = await client.execute(
+      const query = await client.execute(
         'UPDATE users SET username = ?, mail = ? WHERE id = ?',
         [userData.username, userData.mail, id]
       )
 
+      console.log(query)
+      const { rowsAffected } = query
       if (rowsAffected === 0) {
         throw new Error('PageNotFound')
       }
       return true
     } catch (e) {
-      throw new Error('page not found')
+      console.log(e.message)
+      throw new Error(e.message)
     }
   }
 

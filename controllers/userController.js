@@ -20,7 +20,15 @@ export class UserController {
       const updateUser = await this.userModel.update({ userData, id: user.id })
       res.json({ user: updateUser })
     } catch (error) {
-      res.status(400)
+      console.log('Error:', error.message)
+
+      // Manejar errores específicos
+      if (error.message.includes('UNIQUE constraint failed')) {
+        return res.status(400).json('The field is already used')
+      }
+
+      // Manejar otros errores genéricos
+      return res.status(500).json({ error: 'Internal Server Error' })
     }
   }
 
