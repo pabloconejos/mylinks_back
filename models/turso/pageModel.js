@@ -44,4 +44,26 @@ export class PageModel {
       }
     }
   }
+
+  static async like ({ pageId, likeCount }) {
+    console.log(likeCount, pageId)
+    try {
+      const { rowsAffected } = await client.execute(
+        'UPDATE linkspage SET likes = ? WHERE id = ?',
+        [likeCount, pageId]
+      )
+
+      if (rowsAffected === 0) {
+        throw new Error('PageNotFound')
+      }
+
+      return pageId
+    } catch (e) {
+      if (e.message === 'PageNotFound') {
+        throw new Error('The page you are trying to update does not exist.')
+      } else {
+        throw new Error('An unexpected error occurred while updating the page. Please try again later.')
+      }
+    }
+  }
 }

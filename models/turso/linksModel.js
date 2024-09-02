@@ -20,6 +20,7 @@ export class LinksModel {
   }
 
   static async getLinks ({ userId }) {
+    console.log(userId)
     try {
       const { rows } = await client.execute(`
         SELECT 
@@ -36,7 +37,7 @@ export class LinksModel {
         FROM links l 
         LEFT JOIN links_images lsi ON l.image_id = lsi.id 
         WHERE 
-          user_id = ?`, [userId])
+          userid = ?`, [userId])
       return rows
     } catch (e) {
       throw new Error(e)

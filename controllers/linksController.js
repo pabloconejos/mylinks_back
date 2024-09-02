@@ -1,3 +1,4 @@
+import { query } from 'express'
 import { validateLink } from '../schemas/index.js'
 
 export class LinksController {
@@ -24,14 +25,16 @@ export class LinksController {
   }
 
   getLinks = async (req, res) => {
-    const { user } = req.session
+    // const { user } = req.session
+    const { user } = req.params
+    console.log(user)
 
     if (!user) {
-      return res.status(401).json({ authenticated: false, message: 'Unauthorized' })
+      return res.status(400)
     }
 
     try {
-      const links = await this.linksModel.getLinks({ userId: user.id })
+      const links = await this.linksModel.getLinks({ userId: user })
       res.json(links)
     } catch (e) {
       res.status(400).json({ message: e.message })

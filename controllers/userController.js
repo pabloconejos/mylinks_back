@@ -50,7 +50,6 @@ export class UserController {
   }
 
   getUser = async (req, res) => {
-    console.log(req)
     const { user } = req.params
     const exact = req.query.exact === 'true'
 

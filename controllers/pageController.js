@@ -54,4 +54,18 @@ export class PageController {
       }
     }
   }
+
+  like = async (req, res) => {
+    const { pageId, likeCount } = req.body
+    try {
+      const page = await this.pageModel.like({ pageId, likeCount })
+      res.json({ page })
+    } catch (e) {
+      if (e.message === 'The page you are trying to update does not exist.') {
+        res.status(404).json({ message: e.message })
+      } else {
+        res.status(409).json({ message: e.message })
+      }
+    }
+  }
 }
