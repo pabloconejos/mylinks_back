@@ -59,11 +59,8 @@ export class UserController {
 
   getUser = async (req, res) => {
     const { user } = req.params
-    const exact = req.query.exact === 'true'
 
-    if (!user) {
-      return res.status(400).json({ error: 'User not found' })
-    }
+    const exact = req.query.exact === 'true'
 
     try {
       const userResult = await this.userModel.getUser({ user, exact })

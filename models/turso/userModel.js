@@ -78,10 +78,10 @@ export class UserModel {
         LEFT JOIN linkspage lsp ON u.id = lsp.user_id
         LEFT JOIN html_bg html ON html.id = lsp.background_html_id`
 
-      if (exact) {
+      if (exact && user) {
         query = `${query} WHERE username = ?`
         params = [user]
-      } else {
+      } else if (!exact && user) {
         query = `${query} WHERE username LIKE ?`
         params = [`${user}%`]
       }
@@ -89,7 +89,7 @@ export class UserModel {
       const { rows } = await client.execute(query, params)
 
       if (rows.length <= 0) {
-        throw new Error('User not Found')
+        return []
       }
 
       return rows

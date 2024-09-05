@@ -9,6 +9,7 @@ export const createUserRouter = ({ userModel }) => {
   // pageRouter.post('/delete', userController.create)
   pageRouter.patch('/update', userController.update)
   pageRouter.patch('/changePassword', userController.resetPassword)
+  pageRouter.get('/', userController.getUser)
   pageRouter.get('/:user', userController.getUser)
 
   return pageRouter
