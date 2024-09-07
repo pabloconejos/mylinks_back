@@ -66,9 +66,18 @@ export class AuthController {
   }
 
   logout = async (req, res) => {
-    res
+    res.clearCookie('acces_token', {
+      httpOnly: true, // Misma configuración que al crear
+      secure: process.env.NODE_ENV === 'production', // Misma configuración que al crear
+      sameSite: 'strict', // Misma configuración que al crear
+      path: '/' // El mismo path usado cuando creaste la cookie
+    })
+  
+    return res.json({ message: 'Logout successful' })
+
+    /* res
       .clearCookie('acces_token')
-      .json({ message: 'logout succsecfull' })
+      .json({ message: 'logout succsecfull' }) */
   }
 
   checkAuth = async (req, res) => {

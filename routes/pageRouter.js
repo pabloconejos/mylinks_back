@@ -9,7 +9,7 @@ export const createPageRouter = ({ pageModel }) => {
 
   const likeLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
-    max: 2,
+    max: 20,
     message: 'Demasiadas solicitudes de likes desde esta IP, por favor intente de nuevo más tarde.'
   })
 
