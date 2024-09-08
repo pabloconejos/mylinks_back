@@ -13,7 +13,7 @@ export const createApp = ({ authModel, pageModel, bgHtmlModel, linksModel, userM
   app.disable('x-powered-by')
 
   app.use(cors({
-    origin: 'https://mylinks-sigma.vercel.app/',
+    origin: 'https://mylinks-sigma.vercel.app',
     credentials: true
   }))
   app.use(json())
