@@ -41,7 +41,7 @@ export class AuthController {
         .cookie('acces_token', token, {
           httpOnly: true, // la cookie solo se puede ver desde el servidor
           secure: process.env.NODE_ENV === 'production', // la cookie solo se puede acceder en https
-          sameSite: 'strict', // solo se puede acceder desde el mismo dominio
+          sameSite: 'none', // solo se puede acceder desde el mismo dominio
           maxAge: 1000 * 60 * 60
         })
         .json({ user })
@@ -69,7 +69,7 @@ export class AuthController {
     res.clearCookie('acces_token', {
       httpOnly: true, // Misma configuración que al crear
       secure: process.env.NODE_ENV === 'production', // Misma configuración que al crear
-      sameSite: 'strict', // Misma configuración que al crear
+      sameSite: 'none', // Misma configuración que al crear
       path: '/' // El mismo path usado cuando creaste la cookie
     })
     return res.json({ message: 'Logout successful' })
@@ -81,9 +81,9 @@ export class AuthController {
 
   checkAuth = async (req, res) => {
     const { user } = req.session
-
+    console.log('Session', req.session)
     if (!user) {
-      return res.status(401).json({ authenticated: false, message: 'Unauthorized' })
+      return res.status(401).json({ authenticated: false, message: req.session })
     }
 
     res.json({ authenticated: true, message: 'Authorized' })
