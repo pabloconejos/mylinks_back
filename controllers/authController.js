@@ -41,7 +41,7 @@ export class AuthController {
         .cookie('acces_token', token, {
           httpOnly: true, // la cookie solo se puede ver desde el servidor
           secure: process.env.NODE_ENV === 'production', // la cookie solo se puede acceder en https
-          sameSite: 'None',
+          sameSite: 'strict', // solo se puede acceder desde el mismo dominio
           maxAge: 1000 * 60 * 60
         })
         .json({ user })
@@ -72,7 +72,6 @@ export class AuthController {
       sameSite: 'strict', // Misma configuración que al crear
       path: '/' // El mismo path usado cuando creaste la cookie
     })
-  
     return res.json({ message: 'Logout successful' })
 
     /* res
