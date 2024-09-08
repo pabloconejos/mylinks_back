@@ -13,7 +13,7 @@ export const createApp = ({ authModel, pageModel, bgHtmlModel, linksModel, userM
   app.disable('x-powered-by')
 
   app.use(cors({
-    origin: '*',
+    origin: 'http://localhost:4200',
     credentials: true
   }))
   app.use(json())
