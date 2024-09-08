@@ -41,7 +41,7 @@ export class AuthController {
         .cookie('acces_token', token, {
           httpOnly: true, // la cookie solo se puede ver desde el servidor
           secure: process.env.NODE_ENV === 'production', // la cookie solo se puede acceder en https
-          sameSite: 'strict', // solo se puede acceder desde el mismo dominio
+          sameSite: process.env.NODE_ENV === 'production' ? 'Lax' : 'None',
           maxAge: 1000 * 60 * 60
         })
         .json({ user })
