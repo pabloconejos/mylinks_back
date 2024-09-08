@@ -13,7 +13,7 @@ export const createApp = ({ authModel, pageModel, bgHtmlModel, linksModel, userM
   app.disable('x-powered-by')
 
   app.use(cors({
-    origin: 'http://localhost:4200/',
+    origin: 'http://localhost:4200',
     credentials: true
   }))
   app.use(json())
@@ -25,7 +25,7 @@ export const createApp = ({ authModel, pageModel, bgHtmlModel, linksModel, userM
     req.session = { user: null }
 
     try {
-      const payload = jwt.verify(token, SECRET_JWT_KEY || '')
+      const payload = jwt.verify(token, SECRET_JWT_KEY)
       req.session.user = payload
     } catch (e) { }
 
