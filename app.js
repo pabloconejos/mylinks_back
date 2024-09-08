@@ -21,7 +21,6 @@ export const createApp = ({ authModel, pageModel, bgHtmlModel, linksModel, userM
 
   // checkeo de si tiene token
   app.use((req, res, next) => {
-    console.log('Cookies:', req.cookies)
     const token = req.cookies.acces_token
     req.session = { user: null }
 
