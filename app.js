@@ -12,21 +12,12 @@ export const createApp = ({ authModel, pageModel, bgHtmlModel, linksModel, userM
   const app = express()
   app.disable('x-powered-by')
 
-  const allowedOrigins = [
-    'http://localhost:4200', // Durante desarrollo
-    'https://mi-app.vercel.app' // En producción
-  ]
-
   app.use(cors({
-    origin: function (origin, callback) {
-      if (allowedOrigins.includes(origin)) {
-        callback(null, true)
-      } else {
-        callback(new Error('Not allowed by CORS'))
-      }
-    },
-    credentials: true // Permite el envío de cookies
+    origin: 'http://localhost:4200/',
+    credentials: true
   }))
+  app.use(json())
+  app.use(cookieParser()) // lee las cookies entrantes y lkas pone a disposicion el en req.cookies
 
   // checkeo de si tiene token
   app.use((req, res, next) => {
