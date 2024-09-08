@@ -25,7 +25,7 @@ export const createApp = ({ authModel, pageModel, bgHtmlModel, linksModel, userM
     req.session = { user: null }
 
     try {
-      const payload = jwt.verify(token, SECRET_JWT_KEY)
+      const payload = jwt.verify(token, SECRET_JWT_KEY || '')
       req.session.user = payload
     } catch (e) { }
 

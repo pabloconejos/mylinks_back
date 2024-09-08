@@ -12,7 +12,7 @@ export class AuthModel {
   static async register ({ input }) {
     // 3.crear id
     const id = crypto.randomUUID()
-    const hashedPassword = await bcrypt.hash(input.password, SALT_ROUNDS)
+    const hashedPassword = await bcrypt.hash(input.password, SALT_ROUNDS || 10)
     try {
       await client.execute('INSERT INTO users (id, username, mail, password) VALUES (?, ?, ?, ?)', [id, input.username, input.mail, hashedPassword])
       return id

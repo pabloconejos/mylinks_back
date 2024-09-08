@@ -38,7 +38,7 @@ export class UserModel {
 
   static async changePassword ({ newPassword, id }) {
     try {
-      const hashedPassword = await bcrypt.hash(newPassword, SALT_ROUNDS)
+      const hashedPassword = await bcrypt.hash(newPassword, SALT_ROUNDS || 10)
 
       const { rowsAffected } = await client.execute(
         'UPDATE users SET password = ? WHERE id = ?',
