@@ -81,9 +81,9 @@ export class AuthController {
 
   checkAuth = async (req, res) => {
     const { user } = req.session
-    console.log('Session', req.session)
+    console.log(req.session)
     if (!user) {
-      return res.status(401).json({ authenticated: false, message: req.session })
+      return res.status(401).json({ authenticated: false, message: 'Unauthorized' })
     }
 
     res.json({ authenticated: true, message: 'Authorized' })

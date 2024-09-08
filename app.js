@@ -13,7 +13,7 @@ export const createApp = ({ authModel, pageModel, bgHtmlModel, linksModel, userM
   app.disable('x-powered-by')
 
   app.use(cors({
-    origin: 'http://localhost:4200',
+    origin: '*',
     credentials: true
   }))
   app.use(json())
@@ -21,6 +21,7 @@ export const createApp = ({ authModel, pageModel, bgHtmlModel, linksModel, userM
 
   // checkeo de si tiene token
   app.use((req, res, next) => {
+    console.log('Cookies:', req.cookies)
     const token = req.cookies.acces_token
     req.session = { user: null }
 
