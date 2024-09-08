@@ -26,16 +26,16 @@ Existen aplicaciones similares ya en el mercado, como Linktree, que ofrecen func
 
 ## Instalación
 
-1. Clona el repositorio:
+1. **Clona el repositorio:**
    ```bash
    git clone https://github.com/pabloconejos/mylinks_back.git
-2. Navega al directorio del proyecto:
+2. **Navega al directorio del proyecto:**
     ```bash
     cd mylinks_back
-3. Instala las dependencias:
+3. **Instala las dependencias:**
     ```bash
     npm install
-4. Configura las variables de entorno en config.js:
+4. **Configura las variables de entorno en config.js:**
     ```bash
     export const {
       _PORT = 3000,
@@ -45,11 +45,11 @@ Existen aplicaciones similares ya en el mercado, como Linktree, que ofrecen func
       _URI = '' // DATABASE URI
     } = process.env
     
-5. Ejecuta el servidor en modo de desarrollo:
+5. **Ejecuta el servidor en modo de desarrollo:**
    ```bash
    npm run dev
 
-6. Construlle la base de datos
+6. **Construlle la base de datos**
    ```sql
    CREATE TABLE
      users (
@@ -162,3 +162,46 @@ Existen aplicaciones similares ya en el mercado, como Linktree, que ofrecen func
    
    ALTER TABLE linkspage
    ADD COLUMN secondaryColor TEXT DEFAULT '#fffff';
+
+## Cómo Colaborar
+
+1. **Clona el Repositorio**
+
+   Clona el repositorio del backend usando los siguientes comandos:
+
+   ```bash
+   git clone https://github.com/pabloconejos/mylinks_back.git
+   
+2. **Instala las Dependencias**
+
+    Navega a la carpeta del backend e instala las dependencias necesarias con:
+  
+    ```bash
+    cd mylinks_bakcend
+    npm install
+
+3. **Configura el Fronted**
+
+    Asegúrate de seguir las instrucciones específicas del frontend para su configuración, como la creación de variables de entorno o la configuración de la base de datos.
+    ```bash
+    https://github.com/pabloconejos/mylinks
+
+## Contribuye con Cambios
+
+Para contribuir al proyecto, sigue estos pasos:
+
+1. **Crea una rama para tus cambios:**
+
+   ```bash
+   git checkout -b mi-rama
+   
+2. **Realiza tus modificaciones y haz commit:**
+
+    ```bash
+    git commit -am 'Descripción de los cambios'
+3. **Envía tus cambios a GitHub:**
+
+    ```bash
+    git push origin mi-rama
+    
+4. **Abre un pull request para revisar tus cambios.**
