@@ -33,11 +33,13 @@ export const createApp = ({ authModel, pageModel, bgHtmlModel, linksModel, userM
   })
 
   // RUTAS
+  app.get('/', (req, res) => res.json({ okey: true }))
   app.use('/auth', createAuthRouter({ authModel }))
   app.use('/page', createPageRouter({ pageModel }))
   app.use('/background-html', createBgHtmlRouter({ bgHtmlModel }))
   app.use('/links', createLinksRouter({ linksModel }))
   app.use('/user', createUserRouter({ userModel }))
+  app.use((req, res, next) => { res.status(404).json({ error: 'Route not found' }) })
 
   const PORT = process.env.PORT ?? 1234
 
